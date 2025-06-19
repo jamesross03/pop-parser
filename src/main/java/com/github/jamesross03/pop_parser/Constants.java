@@ -1,8 +1,12 @@
 package com.github.jamesross03.pop_parser;
 
+import java.util.Map;
+
+import com.github.jamesross03.pop_parser.utils.*;
+import com.github.jamesross03.pop_parser.utils.records.*;
+
 /**
- * Defines constants used throughout the program (e.g acceptable configuration 
- * values).
+ * Defines constants used in the library
  */
 public class Constants {
     // ---- Record formats ---- 
@@ -14,4 +18,8 @@ public class Constants {
     public static final String BIRTH = "BIRTH";
     /** List of permitted record types */
     public static final String[] TYPES = new String[]{BIRTH};
+
+    public static final Map<Class<?>, IRecordFactory<?>> FACTORY_MAP = Map.of(
+        BirthRecord.class, new BirthRecordFactory()
+    );
 }
