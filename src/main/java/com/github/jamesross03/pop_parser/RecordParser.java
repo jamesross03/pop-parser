@@ -1,7 +1,7 @@
 package com.github.jamesross03.pop_parser;
 
-import com.github.jamesross03.pop_parser.utils.IRecordFactory;
-
+import com.github.jamesross03.pop_parser.utils.RecordFactory;
+import com.github.jamesross03.pop_parser.utils.RecordFormat;
 import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.exceptions.CsvValidationException;
 
@@ -15,29 +15,29 @@ import java.util.Map;
  * Parser for CSV files containing Records, where <T> is the Record class
  * (e.g BirthRecord).
  */
-// TODO: For now, hardcode TD format
 public class RecordParser<T> {
     /**
      * Record Factory implementation used to create records from line in CSV.
      */
-    private final IRecordFactory<T> rf;
+    private final RecordFactory<T> rf;
 
     /**
      * Creates a new instance of the RecordParser class for <T> records.
      * 
      * @param type Record type <T> being parsed
+     * @param format RecordFormat corresponding to file contents
      */
     @SuppressWarnings("unchecked")
-    public RecordParser(Class<T> type) {
+    public RecordParser(Class<T> type, RecordFormat format) {
         // Gets generic recordFactory corresponding to type <T>
-        IRecordFactory<?> factory = Constants.FACTORY_MAP.get(type);
+        var constructor = Constants.FACTORY_MAP.get(type);
 
-        if (factory == null) {
+        if (constructor == null) {
             throw new IllegalArgumentException("Invalid record type: " + type.getSimpleName());
         }
 
         // Cast to correct type
-        rf = (IRecordFactory<T>)(factory);
+        this.rf = (RecordFactory<T>)constructor.apply(format);
     }
 
     /**
