@@ -3,8 +3,8 @@ package com.github.jamesross03.pop_parser.utils;
 import java.util.Map;
 
 /**
- * Interface for generic factory class for making Record objects from a line of
- * CSV input. 
+ * Interface for generic factory class for making record <T> objects from a line
+ * of CSV input. 
  */
 public interface IRecordFactory<T> {
     /**

@@ -1,7 +1,8 @@
-package com.github.jamesross03.pop_parser.utils;
+package com.github.jamesross03.pop_parser.utils.factories;
 
 import java.util.Map;
 
+import com.github.jamesross03.pop_parser.utils.IRecordFactory;
 import com.github.jamesross03.pop_parser.utils.records.BirthRecord;
 
 /**

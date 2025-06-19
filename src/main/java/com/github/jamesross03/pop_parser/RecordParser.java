@@ -12,20 +12,31 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Parser for record input files.
+ * Parser for CSV files containing Records, where <T> is the Record class
+ * (e.g BirthRecord).
  */
 // TODO: For now, hardcode TD format
 public class RecordParser<T> {
+    /**
+     * Record Factory implementation used to create records from line in CSV.
+     */
     private final IRecordFactory<T> rf;
 
+    /**
+     * Creates a new instance of the RecordParser class for <T> records.
+     * 
+     * @param type Record type <T> being parsed
+     */
     @SuppressWarnings("unchecked")
     public RecordParser(Class<T> type) {
+        // Gets generic recordFactory corresponding to type <T>
         IRecordFactory<?> factory = Constants.FACTORY_MAP.get(type);
 
         if (factory == null) {
             throw new IllegalArgumentException("Invalid record type: " + type.getSimpleName());
         }
 
+        // Cast to correct type
         rf = (IRecordFactory<T>)(factory);
     }
 

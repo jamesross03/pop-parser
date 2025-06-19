@@ -1,5 +1,8 @@
 package com.github.jamesross03.pop_parser.utils.records;
 
+/**
+ * Object representing a Birth Record.
+ */
 public class BirthRecord {
     private final String forename;
     private final String surname;
