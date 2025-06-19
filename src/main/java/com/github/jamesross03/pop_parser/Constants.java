@@ -1,17 +1,21 @@
 package com.github.jamesross03.pop_parser;
 
+import java.util.Map;
+import java.util.function.Function;
+
+import com.github.jamesross03.pop_parser.utils.RecordFactory;
+import com.github.jamesross03.pop_parser.utils.RecordFormat;
+import com.github.jamesross03.pop_parser.utils.factories.*;
+import com.github.jamesross03.pop_parser.utils.records.*;
+
 /**
- * Defines constants used throughout the program (e.g acceptable configuration 
- * values).
+ * Defines constants used in the library
  */
 public class Constants {
-    // ---- Record formats ---- 
-    public static final String TD = "TD";
-    /** List of permitted record formats */
-    public static final String[] FORMATS = new String[]{TD};
-
-    // ---- Record types ----
-    public static final String BIRTH = "BIRTH";
-    /** List of permitted record types */
-    public static final String[] TYPES = new String[]{BIRTH};
+    /**
+     * Map of pairs of Record classes and their corresponding factories.
+     */
+    public static final Map<Class<?>, Function<RecordFormat, RecordFactory<?>>> FACTORY_MAP = Map.of(
+        BirthRecord.class, BirthRecordFactory::new
+    );
 }

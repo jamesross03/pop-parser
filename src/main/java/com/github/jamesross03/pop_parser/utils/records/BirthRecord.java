@@ -1,13 +1,13 @@
-package com.github.jamesross03.pop_parser.utils;
+package com.github.jamesross03.pop_parser.utils.records;
 
 /**
- * Basic generic class for Records, only stores forename and surname.
+ * Object representing a Birth Record.
  */
-public class Record {
+public class BirthRecord {
     private final String forename;
     private final String surname;
 
-    public Record(String forename, String surname) {
+    public BirthRecord(String forename, String surname) {
         this.forename = forename;
         this.surname = surname;
     }
