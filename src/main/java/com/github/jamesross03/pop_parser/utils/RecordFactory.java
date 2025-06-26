@@ -6,7 +6,7 @@ import java.util.Map;
  * Abstract factory class for making record <T> objects from a line of CSV 
  * input. 
  */
-public abstract class RecordFactory<T> {
+public abstract class RecordFactory<T extends Record> {
     protected final RecordFormat format;
 
     /**

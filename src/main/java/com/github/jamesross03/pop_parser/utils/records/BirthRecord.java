@@ -1,9 +1,11 @@
 package com.github.jamesross03.pop_parser.utils.records;
 
+import com.github.jamesross03.pop_parser.utils.Record;
+
 /**
  * Object representing a Birth Record.
  */
-public class BirthRecord {
+public class BirthRecord extends Record {
     private final String forename;
     private final String surname;
 
