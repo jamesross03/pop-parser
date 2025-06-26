@@ -7,7 +7,7 @@
     <groupId>com.github.jamesross03</groupId>
     <artifactId>pop-parser</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0-alpha</version>
+    <version>1.1.0-alpha</version>
     <name>pop-parser</name>
 
     <build>

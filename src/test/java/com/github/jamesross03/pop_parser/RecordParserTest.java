@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.github.jamesross03.pop_parser.utils.Record;
 import com.github.jamesross03.pop_parser.utils.RecordFormat;
 import com.github.jamesross03.pop_parser.utils.formats.*;
 import com.github.jamesross03.pop_parser.utils.records.*;
@@ -19,7 +20,7 @@ public class RecordParserTest {
      * @param type Record type <T> being parsed
      * @param format RecordFormat corresponding to file contents
      */
-    private <T> void testParsing(String path, Class type, RecordFormat format) {
+    private <T extends Record> void testParsing(String path, Class type, RecordFormat format) {
         try {
             URL filepath = getClass().getClassLoader().getResource(path);
             assertNotNull(filepath, "Failed to load test-data at `" + path +"`");

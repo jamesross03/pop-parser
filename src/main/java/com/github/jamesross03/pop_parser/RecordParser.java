@@ -2,6 +2,7 @@ package com.github.jamesross03.pop_parser;
 
 import com.github.jamesross03.pop_parser.utils.RecordFactory;
 import com.github.jamesross03.pop_parser.utils.RecordFormat;
+import com.github.jamesross03.pop_parser.utils.Record;
 import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.exceptions.CsvValidationException;
 
@@ -15,7 +16,7 @@ import java.util.Map;
  * Parser for CSV files containing Records, where <T> is the Record class
  * (e.g BirthRecord).
  */
-public class RecordParser<T> {
+public class RecordParser<T extends Record> {
     /**
      * Record Factory implementation used to create records from line in CSV.
      */
