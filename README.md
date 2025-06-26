@@ -29,4 +29,12 @@ The pop-parser library is available as a Maven package through Github Packages a
     <url>https://maven.pkg.github.com/jamesross03/pop-parser</url>
   </repository>
 </repositories>
+
+<dependencies>
+  <dependency>
+    <groupId>com.github.jamesross03</groupId> 
+    <artifactId>pop-parser</artifactId>
+    <version>1.0.0-alpha</version>
+  </dependency>
+</dependencies>
 ```
