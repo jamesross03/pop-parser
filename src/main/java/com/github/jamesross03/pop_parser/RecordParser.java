@@ -3,17 +3,18 @@ package com.github.jamesross03.pop_parser;
 import com.github.jamesross03.pop_parser.utils.RecordFactory;
 import com.github.jamesross03.pop_parser.utils.RecordFormat;
 import com.github.jamesross03.pop_parser.utils.Record;
-import com.opencsv.CSVReaderHeaderAware;
+import com.opencsv.CSVParser;
 import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -73,20 +74,39 @@ public class RecordParser<T extends Record> {
      * @throws CsvValidationException if CSV is invalid or incorrectly formatted
      */
     public List<T> parse(Stream<String> csvStream) throws IOException, CsvValidationException {
-        // Join stream of lines into one CSV string. This is inefficient Stream
-        // handling but assuming resources aren't limited.
-        String csvContent = csvStream.collect(Collectors.joining("\n"));
-        
-        try (CSVReaderHeaderAware reader = new CSVReaderHeaderAware(new StringReader(csvContent))) {
-            List<T> list = new ArrayList<>();
-            Map<String, String> values;
-            T r;
-            while ((values = reader.readMap()) != null) {
-                if ((r = rf.makeRecord(values)) != null) {
-                    list.add(r);
-                }
+        List<T> results = new ArrayList<>();
+        Iterator<String> lines = csvStream.iterator();
+        CSVParser parser = new CSVParser();
+
+        // Handle empty streams
+        if (!lines.hasNext()) return Collections.emptyList();
+
+        // Get headers
+        String[] headers = parser.parseLine(lines.next());
+
+        // Iterate for all lines of values
+        String[] values;
+        Map<String, String> row;
+        T r;
+        while (lines.hasNext()) {
+            if ((values = parser.parseLine(lines.next())) == null) continue;
+
+            if (headers.length != values.length) {
+                throw new CsvValidationException("Inconsistent number of columns, see line " + results.size()+2);
             }
-            return list;
+
+            // Make map of headers to values
+            row = new LinkedHashMap<>();
+            for (int i = 0; i < headers.length; i++) {
+                row.put(headers[i], values[i]);
+            }
+
+            // Make record
+            if ((r = rf.makeRecord(row)) != null) {
+                results.add(r);
+            }
         }
+
+        return results;
     }
 }
