@@ -1,0 +1,40 @@
+name: Deploy Javadoc to /docs on main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  javadoc:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'corretto'
+        java-version: '21'
+        cache: 'maven'
+
+    - name: Generate Javadoc
+      run: mvn -B javadoc:javadoc
+
+    - name: Copy Javadoc to /docs
+      run: |
+        rm -rf docs
+        mkdir -p docs
+        cp -r target/site/apidocs/* docs/
+
+    - name: Commit and push docs
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add docs
+        git commit -m "Update Javadoc [skip ci]" || echo "No changes to commit"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
