@@ -53,18 +53,36 @@ public class RecordParser<T extends Record> {
      * @throws IOException if errors occur during file-reading
      * @throws CsvValidationException if CSV is invalid or incorrectly formatted
      */
-    public List<T> parse (String filepath) throws IOException, CsvValidationException {
-        List<T> list = new ArrayList<T>();
-
-        try (CSVReaderHeaderAware reader = new CSVReaderHeaderAware(new FileReader(filepath))) {
+    public List<T> parse(String filepath) throws IOException, CsvValidationException {
+        try (FileReader fileReader = new FileReader(filepath)) {
+            return parse(fileReader);
+        }
+    }
+    
+    /**
+     * Parses all lines from an input stream of CSV data (with headers) into
+     * objects of {@code Record} subclass {@code T}.
+     * 
+     * @param csvStream input stream of CSV data (incl. headers)
+     * @return list containing the parsed {@code T} objects
+     * @throws IOException if errors occur during file-reading
+     * @throws CsvValidationException if CSV is invalid or incorrectly formatted
+     */
+    public List<T> parse(Stream<String> csvStream) throws IOException, CsvValidationException {
+        // Join stream of lines into one CSV string. This is inefficient Stream
+        // handling but assuming resources aren't limited.
+        String csvContent = csvStream.collect(Collectors.joining("\n"));
+        
+        try (CSVReaderHeaderAware reader = new CSVReaderHeaderAware(new StringReader(csvContent))) {
+            List<T> list = new ArrayList<>();
             Map<String, String> values;
             T r;
             while ((values = reader.readMap()) != null) {
-                if ((r =  rf.makeRecord(values)) != null) list.add(r);
+                if ((r = rf.makeRecord(values)) != null) {
+                    list.add(r);
+                }
             }
-
+            return list;
         }
-
-        return list;
     }
 }
