@@ -4,6 +4,11 @@ import java.util.Map;
 
 import com.github.jamesross03.pop_parser.utils.RecordFormat;
 
+/**
+ * Class representing the TD format of record input, as designed by Tom Dalton
+ * (https://github.com/tomsdalton) and generated using the Valipop application
+ * (https://github.com/stacs-srg/valipop).
+ */
 public class TDFormat extends RecordFormat {
 
     @Override

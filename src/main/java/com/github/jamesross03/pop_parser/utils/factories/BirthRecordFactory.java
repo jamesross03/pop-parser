@@ -7,8 +7,8 @@ import com.github.jamesross03.pop_parser.utils.RecordFormat;
 import com.github.jamesross03.pop_parser.utils.records.BirthRecord;
 
 /**
- * Implementation of IRecordFactory interface for creating BirthRecords from
- * lines of CSV input.
+ * {@link RecordFactory} subclass for making {@link BirthRecord} objects from a line of CSV
+ * input. 
  */
 public class BirthRecordFactory extends RecordFactory<BirthRecord> {
     public BirthRecordFactory(RecordFormat format) {
