@@ -6,11 +6,15 @@ import com.github.jamesross03.pop_parser.utils.Record;
 import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.exceptions.CsvValidationException;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Parser for CSV input files containing records, where type {@code T} is a
@@ -54,8 +58,8 @@ public class RecordParser<T extends Record> {
      * @throws CsvValidationException if CSV is invalid or incorrectly formatted
      */
     public List<T> parse(String filepath) throws IOException, CsvValidationException {
-        try (FileReader fileReader = new FileReader(filepath)) {
-            return parse(fileReader);
+        try (Stream<String> stream = Files.lines(Path.of(filepath))) {
+            return parse(stream);
         }
     }
     
