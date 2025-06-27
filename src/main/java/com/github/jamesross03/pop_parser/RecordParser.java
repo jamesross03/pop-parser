@@ -13,24 +13,28 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Parser for CSV files containing Records, where <T> is the Record class
- * (e.g BirthRecord).
+ * Parser for CSV input files containing records, where type {@code T} is a
+ * subclass of the {@code Record} abstract class representing the type of
+ * records (e.g birth).
+ * 
+ * @param <T> subclass of {@code Record} to be parsed
  */
 public class RecordParser<T extends Record> {
     /**
-     * Record Factory implementation used to create records from line in CSV.
+     * {@link RecordFactory} instance used to create {@code T}  objects from input.
      */
     private final RecordFactory<T> rf;
 
     /**
-     * Creates a new instance of the RecordParser class for <T> records.
+     * Initialises a new instance of {@code RecordParser} for parsing records of
+     * type {@code T} from input in a given format.
      * 
-     * @param type Record type <T> being parsed
-     * @param format RecordFormat corresponding to file contents
+     * @param type class of {@code Record} subclass to parse
+     * @param format format of input
      */
     @SuppressWarnings("unchecked")
     public RecordParser(Class<T> type, RecordFormat format) {
-        // Gets generic recordFactory corresponding to type <T>
+        // Gets RecordFactory instance corresponding to <T>
         var constructor = Constants.FACTORY_MAP.get(type);
 
         if (constructor == null) {
@@ -42,12 +46,12 @@ public class RecordParser<T extends Record> {
     }
 
     /**
-     * Reads all lines from an input file into <T> record objects.
+     * Parses all lines from an input file into objects of {@code Record} subclass {@code T}
      * 
-     * @param filepath 
-     * @return List of <T> record objects
-     * @throws IOException
-     * @throws CsvValidationException
+     * @param filepath filepath of input CSV
+     * @return list containing the parsed {@code T} objects
+     * @throws IOException if errors occur during file-reading
+     * @throws CsvValidationException if CSV is invalid or incorrectly formatted
      */
     public List<T> parse (String filepath) throws IOException, CsvValidationException {
         List<T> list = new ArrayList<T>();
