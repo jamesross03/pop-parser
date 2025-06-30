@@ -19,14 +19,15 @@ import java.util.stream.Stream;
 
 /**
  * Parser for CSV input files containing records, where type {@code T} is a
- * subclass of the {@code Record} abstract class representing the type of
+ * subclass of the {@link Record} abstract class representing the type of
  * records (e.g birth).
  * 
- * @param <T> subclass of {@code Record} to be parsed
+ * @param <T> subclass of {@link Record} to be parsed
  */
 public class RecordParser<T extends Record> {
     /**
-     * {@link RecordFactory} instance used to create {@code T}  objects from input.
+     * {@link RecordFactory} instance used to create {@code T}  objects from
+     * input.
      */
     private final RecordFactory<T> rf;
 
@@ -34,7 +35,7 @@ public class RecordParser<T extends Record> {
      * Initialises a new instance of {@code RecordParser} for parsing records of
      * type {@code T} from input in a given format.
      * 
-     * @param type class of {@code Record} subclass to parse
+     * @param type class of {@link Record} subclass to parse
      * @param format format of input
      */
     @SuppressWarnings("unchecked")
@@ -51,7 +52,8 @@ public class RecordParser<T extends Record> {
     }
 
     /**
-     * Parses all lines from an input file into objects of {@code Record} subclass {@code T}
+     * Parses all lines from an input file into objects of {@link Record}
+     * subclass {@code T}.
      * 
      * @param filepath filepath of input CSV
      * @return list containing the parsed {@code T} objects
@@ -66,7 +68,7 @@ public class RecordParser<T extends Record> {
     
     /**
      * Parses all lines from an input stream of CSV data (with headers) into
-     * objects of {@code Record} subclass {@code T}.
+     * objects of {@link Record} subclass {@code T}.
      * 
      * @param csvStream input stream of CSV data (incl. headers)
      * @return list containing the parsed {@code T} objects
