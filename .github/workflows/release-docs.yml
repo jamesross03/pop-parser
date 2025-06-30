@@ -1,4 +1,4 @@
-name: Deploy Javadoc to /docs on main
+name: Deploy Javadoc to gh-pages branch
 
 on:
   push:
@@ -23,18 +23,23 @@ jobs:
     - name: Generate Javadoc
       run: mvn -B javadoc:javadoc
 
-    - name: Copy Javadoc to /docs
-      run: |
-        rm -rf docs
-        mkdir -p docs
-        cp -r target/reports/apidocs/* docs/
+    - name: Get project version
+      id: get_version
+      run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_OUTPUT"
 
-    - name: Commit and push docs
+    - name: Deploy to gh-pages branch
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add docs
-        git commit -m "Update Javadoc [skip ci]" || echo "No changes to commit"
+
+        git fetch origin gh-pages
+        git checkout gh-pages || git checkout --orphan gh-pages
+
+        rm -rf *
+        cp -R target/reports/apidocs/* .
+
+        git add .
+        git commit -m "Update Javadoc for version ${{ steps.get_version.outputs.VERSION }}" || echo "No changes to commit"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
