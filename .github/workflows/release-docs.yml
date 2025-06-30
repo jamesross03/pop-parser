@@ -27,7 +27,7 @@ jobs:
       run: |
         rm -rf docs
         mkdir -p docs
-        cp -r target/site/apidocs/* docs/
+        cp -r target/reports/apidocs/* docs/
 
     - name: Commit and push docs
       run: |
