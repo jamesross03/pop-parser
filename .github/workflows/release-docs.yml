@@ -1,0 +1,50 @@
+name: Deploy Javadoc to gh-pages branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-javadocs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'corretto'
+        java-version: '21'
+        cache: 'maven'
+
+    - name: Generate Javadoc
+      run: mvn -B javadoc:javadoc
+
+    - name: Get project version
+      id: get_version
+      run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_OUTPUT"
+
+    - name: Deploy to gh-pages branch
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+        if git ls-remote --exit-code --heads origin gh-pages; then
+          git fetch origin gh-pages
+          git checkout gh-pages
+        else
+          git checkout --orphan gh-pages
+        fi
+
+
+        rm -rf docs/*
+        cp -R target/reports/apidocs docs
+
+        git add docs
+        git commit -m "Update Javadoc for version ${{ steps.get_version.outputs.VERSION }}" || echo "No changes to commit"
+        git push -u origin gh-pages
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
