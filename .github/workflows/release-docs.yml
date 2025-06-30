@@ -40,10 +40,10 @@ jobs:
         fi
 
 
-        rm -rf *
-        cp -R target/reports/apidocs/* .
+        rm -rf docs/*
+        cp -R target/reports/apidocs docs
 
-        git add .
+        git add docs
         git commit -m "Update Javadoc for version ${{ steps.get_version.outputs.VERSION }}" || echo "No changes to commit"
         git push
       env:
