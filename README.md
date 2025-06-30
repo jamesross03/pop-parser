@@ -2,9 +2,9 @@
 A modular and reusable Java library containing functionality for parsing population record CSVs.
 
 This library exists as a proof-of-concept and currently offers **limited functionality**:
-- Only BirthRecord type supported for Record types
-- Only TD record format supported
-- Only forename and surname are parsed for birth records
+- Only limited BirthRecord support for Record types
+  - Currently only parses forename and surname 
+- Supports TD and UMEA record formats.
 
 For in-depth documentation, see the [JavaDocs](https://jamesross03.github.io/pop-parser/).
 
