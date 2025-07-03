@@ -7,16 +7,17 @@ import com.github.jamesross03.pop_parser.utils.Record;
  */
 public class BirthRecord extends Record {
     /**
-     * Forename of data-subject
+     * Forename of data-subject.
      */
     private final String forename;
     /**
-     * Surname of data-subject
+     * Surname of data-subject.
      */
     private final String surname;
 
     /**
-     * Initialises a new instance of the BirthRecord class for the given attributes
+     * Initialises a new instance of the {@code BirthRecord} class for the given
+     * attributes.
      * 
      * @param forename forename of data-subject
      * @param surname surname of data-subject
@@ -27,7 +28,7 @@ public class BirthRecord extends Record {
     }
 
     /**
-     * Gets forename of data-subject
+     * Gets forename of data-subject.
      * 
      * @return forename
      */
@@ -36,11 +37,16 @@ public class BirthRecord extends Record {
     }
 
     /**
-     * Gets surname of data-subject
+     * Gets surname of data-subject.
      * 
      * @return surname
      */
     public String getSurname() {
         return this.surname;
+    }
+
+    @Override
+    public String toString() {
+        return "Birth record";
     }
 }

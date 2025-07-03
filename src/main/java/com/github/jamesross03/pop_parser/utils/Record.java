@@ -7,4 +7,12 @@ package com.github.jamesross03.pop_parser.utils;
  */
 public abstract class Record {
     // See above.
+
+    @Override
+    /**
+     * Gets human-readable String representation of Record
+     * 
+     * @return name of record type
+     */
+    public abstract String toString();
 }
