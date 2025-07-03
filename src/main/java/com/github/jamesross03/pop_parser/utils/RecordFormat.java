@@ -22,4 +22,12 @@ public abstract class RecordFormat {
      * @return surname
      */
     public abstract String getSurnameBirth(Map<String, String> row);
+
+    @Override
+    /**
+     * Gets human-readable String representation of RecordFormat
+     * 
+     * @return name of record format
+     */
+    public abstract String toString();
 }

@@ -19,5 +19,10 @@ public class UMEAFormat extends RecordFormat {
     public String getSurnameBirth(Map<String, String> row) {
         return row.get("SURNAME");
     }
+
+    @Override
+    public String toString() {
+        return "UMEA format";
+    }
     
 }

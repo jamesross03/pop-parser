@@ -44,4 +44,9 @@ public class BirthRecord extends Record {
     public String getSurname() {
         return this.surname;
     }
+
+    @Override
+    public String toString() {
+        return "Birth record";
+    }
 }

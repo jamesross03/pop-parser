@@ -20,5 +20,10 @@ public class TDFormat extends RecordFormat {
     public String getSurnameBirth(Map<String, String> row) {
         return row.get("child's surname");
     }
+
+    @Override
+    public String toString() {
+        return "TD format";
+    }
     
 }
