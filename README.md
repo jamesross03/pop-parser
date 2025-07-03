@@ -38,7 +38,7 @@ The pop-parser library is available as a Maven package through Github Packages a
   <dependency>
     <groupId>com.github.jamesross03</groupId> 
     <artifactId>pop-parser</artifactId>
-    <version>1.2.4-alpha</version>
+    <version>1.2.5-alpha</version>
   </dependency>
 </dependencies>
 ```
